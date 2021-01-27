@@ -1,14 +1,15 @@
 import React from 'react';
-import { Container, ContainerSVG, ContainerForm, Input, Button } from './styles';
+import { Container, ContainerForm, Input, Button } from './styles';
 import { Entypo } from '@expo/vector-icons';
 
 import Title from './../../components/Title';
+import ContainerSVG from './../../components/ContainerSVG';
 
 export default function Login() {
     return (
         <Container>
             <Title />
-            <ContainerSVG></ContainerSVG>
+            <ContainerSVG/>
             <ContainerForm>
                 <Input placeholder="Digite um apelido..." />
                 <Button>

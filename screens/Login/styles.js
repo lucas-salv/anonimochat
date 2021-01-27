@@ -9,11 +9,6 @@ export const Container = styled.View`
     font-family: Lato sans-serif;
 `;
 
-export const ContainerSVG = styled.View`
-    width: 100px;
-    height: 100px;
-`;
-
 export const ContainerForm = styled.View`
     display: flex;
     flex-direction: row;
