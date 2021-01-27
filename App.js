@@ -1,21 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { ThemeProvider } from 'styled-components';
+
+import Login from './screens/Login';
+import { darkTheme, lightTheme } from './utils/themes';
 
 export default function App() {
+  const [isLightTheme, setIsLightTheme] = useState(false);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme} >
+        <StatusBar style="inverted" />
+        <Login />
+      </ThemeProvider>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
