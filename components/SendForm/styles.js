@@ -14,7 +14,7 @@ export const Input = styled.TextInput.attrs(props => ({
     placeholderTextColor: props.theme.fontColor,
 }))`
     width: 80%;
-    color: ${props => props.theme.secondaryFontColor};
+    color: ${props => props.theme.contrastColor};
 `;
 
 export const SendButton = styled.TouchableOpacity`

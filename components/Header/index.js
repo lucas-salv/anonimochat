@@ -1,6 +1,5 @@
 import React from 'react';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Container, Avatar, Img, UserInfo, Info, Nickname, Status, ExitButton, Text } from './styles';
+import { Container, Avatar, Img, UserInfo, Info, Nickname, Status, ExitButton, Text, Icon } from './styles';
 
 export default function Header() {
     return (
@@ -16,7 +15,7 @@ export default function Header() {
             </UserInfo>
             <ExitButton>
                 <Text>Sair</Text>
-                <MaterialIcons name="exit-to-app" size={24} color="#fff" />
+                <Icon name="exit-to-app" />
             </ExitButton>
         </Container>
     )

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export const Container = styled.View`
     height: 90px;
@@ -30,7 +31,7 @@ export const Info = styled.View`
 
 export const Nickname = styled.Text`
     font-weight: bold;
-    color: ${props => props.theme.secondaryFontColor};
+    color: ${props => props.theme.contrastColor};
 `;
 
 export const Status = styled.Text`
@@ -45,5 +46,10 @@ export const ExitButton = styled.TouchableOpacity`
 
 export const Text = styled.Text`
     margin-right: 5px;
-    color: ${props => props.theme.secondaryFontColor};
+    color: ${props => props.theme.contrastColor};
 `;
+
+export const Icon = styled(MaterialIcons)`
+    color: ${props => props.theme.contrastColor};
+    font-size: 24px;
+`
