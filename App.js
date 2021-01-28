@@ -12,7 +12,7 @@ export default function App() {
     <>
       <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme} >
         <StatusBar style="inverted" />
-        <Chat />
+        <Chat theme={isLightTheme} setTheme={setIsLightTheme}/>
       </ThemeProvider>
     </>
   );
