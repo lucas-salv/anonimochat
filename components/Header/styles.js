@@ -1,10 +1,11 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
+    height: 90px;
     flex-direction: row;
     justify-content: space-between;
     margin-top: 20px;
-    padding: 30px 40px;
+    padding: 0px 40px;
     border-bottom-width: 1px;
     border-bottom-color: ${props => props.theme.secondaryColor};
 `;

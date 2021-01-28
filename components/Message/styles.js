@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
     align-items: ${props => props.isYou ? "flex-end" : "flex-start"};
-    margin-bottom: 10px;
+    margin: 10px 0;
 `;
 
 export const Text = styled.Text`
