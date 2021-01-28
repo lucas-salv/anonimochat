@@ -13,7 +13,7 @@ export const Container = styled.View`
 export const Input = styled.TextInput.attrs(props => ({
     placeholderTextColor: props.theme.fontColor,
 }))`
-    width: 90%;
+    width: 80%;
     color: ${props => props.theme.secondaryFontColor};
 `;
 
