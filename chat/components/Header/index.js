@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Avatar, Img, UserInfo, Info, Nickname, Status, ExitButton, Text, Icon } from './styles';
 
-export default function Header({ nav }) {
+export default function Header({ nav, name }) {
     return (
         <Container>
             <UserInfo>
@@ -9,7 +9,7 @@ export default function Header({ nav }) {
                     <Img />
                 </Avatar>
                 <Info>
-                    <Nickname>Apelido</Nickname>
+                    <Nickname>{name}</Nickname>
                     <Status>Online</Status>
                 </Info>
             </UserInfo>
