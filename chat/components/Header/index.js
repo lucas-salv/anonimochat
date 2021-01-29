@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Avatar, Img, UserInfo, Info, Nickname, Status, ExitButton, Text, Icon } from './styles';
 
-export default function Header() {
+export default function Header({ nav }) {
     return (
         <Container>
             <UserInfo>
@@ -13,7 +13,7 @@ export default function Header() {
                     <Status>Online</Status>
                 </Info>
             </UserInfo>
-            <ExitButton>
+            <ExitButton onPress={() => nav.goBack()}>
                 <Text>Sair</Text>
                 <Icon name="exit-to-app" />
             </ExitButton>
