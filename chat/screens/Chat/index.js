@@ -11,6 +11,7 @@ import Queue from './../../components/Queue';
 export default function Chat({ navigation, theme, setTheme }) {
     const [name, setName] = useState('Apelido');
     const [queue, setQueue] = useState(undefined);
+    const [messages, setMessages] = useState([]);
 
     useEffect(() => {
         io.on('start', data => {
@@ -20,7 +21,11 @@ export default function Chat({ navigation, theme, setTheme }) {
 
         io.on('queue', data => {
             setQueue(data.message);
-        })
+        });
+
+        io.on('message', data => {
+            setMessages( msgs => [...msgs,  data]);
+        });
     }, []);
 
     return (
@@ -28,8 +33,8 @@ export default function Chat({ navigation, theme, setTheme }) {
         {queue ? <Queue message={queue} /> : 
             <Container>
                 <Header nav={navigation} name={name}/>
-                <Content />
-                <SendForm theme={theme} setTheme={setTheme} />
+                <Content messages={messages} />
+                <SendForm theme={theme} setTheme={setTheme} setMessages={setMessages} />
             </Container>
         }
         </>
