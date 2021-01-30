@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Input, Button } from './styles';
-import { Entypo } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import io from './../../utils/io';
 
 export default function NicknameForm({ nav }) {
@@ -17,7 +17,7 @@ export default function NicknameForm({ nav }) {
         <Container>
             <Input placeholder="Digite um apelido..." value={nickname} onChangeText={text => setNickname(text)} />
             <Button onPress={login}>
-                <Entypo name="controller-play" size={20} color="#FF3366" />
+                <Feather name="play" size={20} color="#41E07F" />
             </Button>
         </Container>
     )
