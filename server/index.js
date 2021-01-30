@@ -36,6 +36,7 @@ io.on('connection', socket => {
 
     socket.on('disconnect', () => {
         console.log('user disconnected');
+        socket.emit('leave room');
     })
 
     socket.on('login', data => {
@@ -47,6 +48,17 @@ io.on('connection', socket => {
     socket.on('send message', data => {
         const room = rooms[socket.id];
         socket.broadcast.to(room).emit('message', data);
+    })
+
+    socket.on('leave room', () => {
+        const room = rooms[socket.id];
+        socket.broadcast.to(room).emit('end', []);
+        socket.leave(room);
+        let peerID = room.split('#');
+        peerID = peerID[0] === socket.id ? peerID[1] : peerID[0];
+        const peer = allUsers[peerID];
+        peer.leave(room);
+        findPeer(allUsers[peerID]);
     })
 })
 
