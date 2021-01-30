@@ -5,12 +5,16 @@ import ThemeButton from './../../components/ThemeButton';
 import { Context } from './../../utils/ChatContext';
 import io from './../../utils/io';
 
-export default function SendForm({ theme, setTheme }) {
+export default function SendForm({ theme, setTheme, setMessages }) {
     const { connected } = useContext(Context);
     const [inputValue, setInputValue] = useState('');
 
     const sendText = () => {
-        if(connected) io.emit('send message', {message: inputValue}, () => setInputValue(''))
+        if(connected) {
+            io.emit('send message', {type: "", message: inputValue});
+            setMessages(msgs => [...msgs, {type: "you", message: inputValue}]);
+            setInputValue('');
+        }
     }
 
     return (

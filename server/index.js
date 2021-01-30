@@ -13,8 +13,8 @@ var rooms = {};    // map socket.id => room
 var names = {};    // map socket.id => name
 var allUsers = {}; // map socket.id => socket
 
-const findPeer = (socket) => {
-    if(queue.length > 0) {
+const findPeer = (socket, status) => {
+    if(queue.length > 0 && queue.indexOf(socket) === -1) {
         const peer = queue.pop();
         const room = socket.id + '#' + peer.id;
 
@@ -27,7 +27,7 @@ const findPeer = (socket) => {
         socket.emit('start', { nickname: names[peer.id], room });
     } else {
         queue.push(socket);
-        socket.emit('queue', { message: 'Você está na fila de espera. Logo, logo você será conectado com alguém' });
+        socket.emit('queue', { status, message: 'Você está na fila de espera. Logo, logo você será conectado com alguém' });
     }
 }
 
@@ -36,6 +36,7 @@ io.on('connection', socket => {
 
     socket.on('disconnect', () => {
         console.log('user disconnected');
+        socket.emit('leave room');
     })
 
     socket.on('login', data => {
@@ -44,10 +45,25 @@ io.on('connection', socket => {
         findPeer(socket);
     })
 
-    socket.on('send message', (data, callback) => {
+    socket.on('send message', data => {
         const room = rooms[socket.id];
-        io.to(room).emit('message', {id: socket.id, message: data.message});
-        callback();
+        socket.broadcast.to(room).emit('message', data);
+    })
+
+    socket.on('leave room', () => {
+        const room = rooms[socket.id];
+        socket.broadcast.to(room).emit('end', []);
+        socket.leave(room);
+        let peerID = room.split('#');
+        peerID = peerID[0] === socket.id ? peerID[1] : peerID[0];
+        const peer = allUsers[peerID];
+        peer.leave(room);
+        findPeer(allUsers[peerID], "O usuário se desconectou. Aguarde!");
+    })
+
+    socket.on('disconnect queue', () => {
+        queue = [];
+        socket.emit('queue', { message: undefined });
     })
 })
 
