@@ -44,10 +44,9 @@ io.on('connection', socket => {
         findPeer(socket);
     })
 
-    socket.on('send message', (data, callback) => {
+    socket.on('send message', data => {
         const room = rooms[socket.id];
-        io.to(room).emit('message', {id: socket.id, message: data.message});
-        callback();
+        socket.broadcast.to(room).emit('message', data);
     })
 })
 
