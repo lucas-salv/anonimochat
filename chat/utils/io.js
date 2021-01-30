@@ -1,5 +1,5 @@
 import ioClient from 'socket.io-client';
 
-const URL = 'https://friendly-shrimp-41.loca.lt';
+const URL = 'https://servidorlocaltunnelaqui';
 
 export default ioClient(URL);

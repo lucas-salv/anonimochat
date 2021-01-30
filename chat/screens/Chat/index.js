@@ -9,7 +9,7 @@ import Queue from './../../components/Queue';
 import { Context } from './../../utils/ChatContext';
 
 export default function Chat({ navigation, theme, setTheme }) {
-    const { room, setRoom } = useContext(Context);
+    const { setRoom } = useContext(Context);
     const [name, setName] = useState('');
     const [queue, setQueue] = useState(undefined);
     const [messages, setMessages] = useState([]);
@@ -28,7 +28,7 @@ export default function Chat({ navigation, theme, setTheme }) {
         })
 
         io.on('queue', data => {
-            setQueue(data.message);
+            setQueue(data);
         });
 
         io.on('message', data => {
@@ -38,7 +38,7 @@ export default function Chat({ navigation, theme, setTheme }) {
 
     return (
         <>
-        {queue ? <Queue message={queue} /> : 
+        {queue ? <Queue data={queue} nav={navigation} /> : 
             <Container>
                 <Header nav={navigation} name={name}/>
                 <Content messages={messages} />
