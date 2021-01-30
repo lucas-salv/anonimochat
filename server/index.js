@@ -43,6 +43,12 @@ io.on('connection', socket => {
         allUsers[socket.id] = socket;
         findPeer(socket);
     })
+
+    socket.on('send message', (data, callback) => {
+        const room = rooms[socket.id];
+        io.to(room).emit('message', {id: socket.id, message: data.message});
+        callback();
+    })
 })
 
 http.listen(3000, () => {
