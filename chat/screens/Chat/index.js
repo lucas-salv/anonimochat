@@ -6,6 +6,7 @@ import io from './../../utils/io';
 import Header from './../../components/Header';
 import Content from './../../components/Content';
 import SendForm from './../../components/SendForm';
+import Queue from './../../components/Queue';
 
 export default function Chat({ navigation, theme, setTheme }) {
     const [name, setName] = useState('Apelido');
@@ -23,14 +24,14 @@ export default function Chat({ navigation, theme, setTheme }) {
     }, []);
 
     return (
-        <Container>
-            {queue ? <Text>{queue}</Text> : 
-                <>
-                    <Header nav={navigation} name={name}/>
-                    <Content />
-                    <SendForm theme={theme} setTheme={setTheme} />
-                </>
-            }
-        </Container>
+        <>
+        {queue ? <Queue message={queue} /> : 
+            <Container>
+                <Header nav={navigation} name={name}/>
+                <Content />
+                <SendForm theme={theme} setTheme={setTheme} />
+            </Container>
+        }
+        </>
     )
 }
