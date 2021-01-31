@@ -22,6 +22,12 @@ var avatars = [
     '/anonimochat/static/avatar04.png'
 ]
 
+const getDate = () => {
+    const d = new Date()
+    const stringDate = `${d.getHours() < 10 ? '0'+d.getHours() : d.getHours() }:${d.getMinutes() < 10 ? '0'+d.getMinutes() : d.getMinutes()}`;
+    return stringDate;
+}
+
 const findPeer = (socket, status) => {
     if(queue.length > 0 && queue.indexOf(socket) === -1) {
         const peer = queue.pop();
@@ -46,11 +52,6 @@ const findPeer = (socket, status) => {
 io.on('connection', socket => {
     console.log('user-> ' + socket.id + ' connected');
 
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-        socket.emit('leave room');
-    })
-
     socket.on('login', data => {
         names[socket.id] = data.nickname;
         allUsers[socket.id] = socket;
@@ -59,10 +60,11 @@ io.on('connection', socket => {
 
     socket.on('send message', data => {
         const room = rooms[socket.id];
-        socket.broadcast.to(room).emit('message', data);
+        socket.broadcast.to(room).emit('message', {...data, date: getDate()});
     })
 
-    socket.on('leave room', () => {
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
         const room = rooms[socket.id];
         socket.broadcast.to(room).emit('end', []);
         socket.leave(room);
