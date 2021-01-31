@@ -9,6 +9,7 @@ export default function NicknameForm({ nav }) {
     const login = () => {
         if(nickname.length > 2) {
             io.emit('login', { nickname });
+            setNickname('');
             nav.navigate('Chat');
         }
     }

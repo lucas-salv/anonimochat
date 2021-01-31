@@ -1,5 +1,7 @@
 import ioClient from 'socket.io-client';
 
-const URL = 'https://ordinary-duck-30.loca.lt';
+const URL = 'https://calm-mule-38.loca.lt';
+
+export const url = URL;
 
 export default ioClient(URL);

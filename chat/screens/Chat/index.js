@@ -10,20 +10,20 @@ import { Context } from './../../utils/ChatContext';
 
 export default function Chat({ navigation, theme, setTheme }) {
     const { setRoom } = useContext(Context);
-    const [name, setName] = useState('');
+    const [userData, setUserData] = useState({});
     const [queue, setQueue] = useState(undefined);
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
         io.on('start', data => {
-            setName(data.nickname);
+            setUserData({ name: data.nickname, avatar: data.avatar });
             setRoom(data.room);
             setQueue(undefined);
         });
 
         io.on('end', data => {
             setMessages(data);
-            setName('');
+            setUserData({name: ''});
             setRoom('');
         })
 
@@ -40,7 +40,7 @@ export default function Chat({ navigation, theme, setTheme }) {
         <>
         {queue ? <Queue data={queue} nav={navigation} /> : 
             <Container>
-                <Header nav={navigation} name={name}/>
+                <Header nav={navigation} data={userData}/>
                 <Content messages={messages} />
                 <SendForm theme={theme} setTheme={setTheme} setMessages={setMessages} />
             </Container>

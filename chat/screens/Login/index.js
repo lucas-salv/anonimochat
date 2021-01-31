@@ -19,16 +19,15 @@ export default function Login({ navigation }) {
     }, []);
 
     return (
-        <KeyboardAvoidingView
-            behavior="position"
-            keyboardVerticalOffset={-200}
-            style={{ backgroundColor: themeContext.background }}
-        >
-            <Container>
+        <Container>
+            <KeyboardAvoidingView
+                behavior="position"
+                style={{ backgroundColor: themeContext.background }}
+            >
                 <Title />
                 <ContainerSVG/>
                 <NicknameForm nav={navigation}/>
-            </Container>
-        </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
+        </Container>
     )
 }

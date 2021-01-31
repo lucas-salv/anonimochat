@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Avatar, Img, UserInfo, Info, Nickname, Status, ExitButton, Text, Icon } from './styles';
-import io from './../../utils/io';
+import io, { url } from './../../utils/io';
 
-export default function Header({ nav, name }) {
+export default function Header({ nav, data }) {
 
     const exitChat = () => {
         io.emit('leave room');
@@ -13,10 +13,12 @@ export default function Header({ nav, name }) {
         <Container>
             <UserInfo>
                 <Avatar>
-                    <Img />
+                    <Img source={{
+                        uri: url + data.avatar 
+                    }} />
                 </Avatar>
                 <Info>
-                    <Nickname>{name}</Nickname>
+                    <Nickname>{data.name}</Nickname>
                     <Status>Online</Status>
                 </Info>
             </UserInfo>
