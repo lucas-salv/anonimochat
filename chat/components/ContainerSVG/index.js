@@ -1,9 +1,12 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { Container, Img } from './styles';
+import loginImg from './../../assets/login.png'
 
 export default function ContainerSVG() {
     return (
-        <Container></Container>
+        <Container>
+            <Img source={loginImg} />
+        </Container>
     )
 }
