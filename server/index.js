@@ -1,4 +1,5 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
     cors: {
@@ -7,11 +8,19 @@ const io = require('socket.io')(http, {
     }
   });
 
+app.use('/anonimochat/static/', express.static('public'));
+
 // variables
 var queue = [];    // list of sockets waiting for peers
 var rooms = {};    // map socket.id => room
 var names = {};    // map socket.id => name
 var allUsers = {}; // map socket.id => socket
+var avatars = [
+    '/anonimochat/static/avatar01.png',
+    '/anonimochat/static/avatar02.png',
+    '/anonimochat/static/avatar03.png',
+    '/anonimochat/static/avatar04.png'
+]
 
 const findPeer = (socket, status) => {
     if(queue.length > 0 && queue.indexOf(socket) === -1) {
@@ -23,8 +32,11 @@ const findPeer = (socket, status) => {
         rooms[peer.id] = room;
         rooms[socket.id] = room;
 
-        peer.emit('start', { nickname: names[socket.id], room });
-        socket.emit('start', { nickname: names[peer.id], room });
+        const peerAvatar = avatars[Math.floor(Math.random() * avatars.length)];
+        const socketAvatar = avatars[Math.floor(Math.random() * avatars.length)]
+
+        peer.emit('start', { nickname: names[socket.id], avatar: peerAvatar, room });
+        socket.emit('start', { nickname: names[peer.id], avatar: socketAvatar, room });
     } else {
         queue.push(socket);
         socket.emit('queue', { status, message: 'Você está na fila de espera. Logo, logo você será conectado com alguém' });
