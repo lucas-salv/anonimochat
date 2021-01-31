@@ -11,10 +11,10 @@ export const darkTheme = {
 
 export const lightTheme = {
     background: "#FFFFFF",
-    fontColor: "#222630",
+    fontColor: "#8892A2",
     secondaryFontColor: "#FFFFFF",
     mainColor: "#35BB69",
-    secondaryColor: "#F5F7FA",
+    secondaryColor: "#EDF0F5",
     statusColor: "#41E07F",
     statusColor2: "#FF3366", 
     contrastColor: "#222630"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { Container } from './styles';
 
@@ -12,7 +12,8 @@ export default function Context({ messages }) {
             <FlatList 
                 data={messages}
                 style={{ paddingHorizontal: 40 }}
-                renderItem={({item, index}) => <Message key={index} isYou={item.type === "you" ? true : false} data={item} />}
+                renderItem={({item}) => <Message isYou={item.type === "you" ? true : false} data={item} />}
+                keyExtractor={(item, index) => index.toString()}
             />
     
         </Container>
