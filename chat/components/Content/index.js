@@ -12,7 +12,7 @@ export default function Context({ messages }) {
             <FlatList 
                 data={messages}
                 style={{ paddingHorizontal: 40 }}
-                renderItem={({item, index}) => <Message key={index} isYou={item.type === "you" ? true : false} data={item.message} />}
+                renderItem={({item, index}) => <Message key={index} isYou={item.type === "you" ? true : false} data={item} />}
             />
     
         </Container>

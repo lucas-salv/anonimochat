@@ -9,10 +9,16 @@ export default function SendForm({ theme, setTheme, setMessages }) {
     const { connected } = useContext(Context);
     const [inputValue, setInputValue] = useState('');
 
+    const getDate = () => {
+        const d = new Date()
+        const stringDate = `${d.getHours() < 10 ? '0'+d.getHours() : d.getHours() }:${d.getMinutes() < 10 ? '0'+d.getMinutes() : d.getMinutes()}`;
+        return stringDate;
+    }
+
     const sendText = () => {
         if(connected) {
             io.emit('send message', {type: "", message: inputValue});
-            setMessages(msgs => [...msgs, {type: "you", message: inputValue}]);
+            setMessages(msgs => [...msgs, {type: "you", date: getDate(), message: inputValue}]);
             setInputValue('');
         }
     }
