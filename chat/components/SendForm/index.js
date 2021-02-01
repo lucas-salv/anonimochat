@@ -17,9 +17,11 @@ export default function SendForm({ theme, setTheme, setMessages }) {
 
     const sendText = () => {
         if(connected) {
-            io.emit('send message', {type: "", message: inputValue});
-            setMessages(msgs => [...msgs, {type: "you", date: getDate(), message: inputValue}]);
-            setInputValue('');
+            if(inputValue.length > 1) {
+                io.emit('send message', {type: "", message: inputValue});
+                setMessages(msgs => [...msgs, {type: "you", date: getDate(), message: inputValue}]);
+                setInputValue('');
+            }
         }
     }
 

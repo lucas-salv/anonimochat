@@ -5,7 +5,7 @@ import io, { url } from './../../utils/io';
 export default function Header({ nav, data }) {
 
     const exitChat = () => {
-        io.emit('disconnect');
+        io.emit('leave room');
         nav.goBack();
     }
 
