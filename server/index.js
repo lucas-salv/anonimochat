@@ -29,7 +29,7 @@ const getDate = () => {
 }
 
 const findPeer = (socket, status) => {
-    if(queue.length > 0 && queue.indexOf(socket) === -1) {
+    if(queue.length > 0 && queue[0].id !== socket.id) {
         const peer = queue.pop();
         const room = socket.id + '#' + peer.id;
 
