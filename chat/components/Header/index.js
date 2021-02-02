@@ -1,9 +1,20 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Container, Avatar, Img, UserInfo, Info, Nickname, Status, ExitButton, Text, Icon } from './styles';
 import io, { url } from './../../utils/io';
 
 export default function Header({ nav, data }) {
+    const [status, setStatus] = useState('Online');
 
+    useEffect(() => {
+        io.on('status client', data => {
+            if(data === 'background') {
+                setStatus('Ausente');
+            } else {
+                setStatus('Online');
+            }
+        })
+    }, []);
+    
     const exitChat = () => {
         io.emit('leave room');
         nav.goBack();
@@ -13,13 +24,14 @@ export default function Header({ nav, data }) {
         <Container>
             <UserInfo>
                 <Avatar>
-                    <Img source={{
+                    <Img 
+                    source={{
                         uri: url + data.avatar 
                     }} />
                 </Avatar>
                 <Info>
                     <Nickname>{data.name}</Nickname>
-                    <Status>Online</Status>
+                    <Status typeColor={status}>{status}</Status>
                 </Info>
             </UserInfo>
             <ExitButton onPress={exitChat}>

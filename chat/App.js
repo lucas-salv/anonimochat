@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ChatContext } from './utils/ChatContext';
-
 import Login from './screens/Login';
 import Chat from './screens/Chat';
 import { darkTheme, lightTheme } from './utils/themes';
@@ -15,7 +13,6 @@ export default function App() {
   const [isLightTheme, setIsLightTheme] = useState(false);
 
   return (
-    <ChatContext>
       <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme} >
         <StatusBar style="inverted" />
         <NavigationContainer>
@@ -29,6 +26,5 @@ export default function App() {
           </Stack.Navigator>
         </NavigationContainer>
       </ThemeProvider>
-    </ChatContext>
   );
 }

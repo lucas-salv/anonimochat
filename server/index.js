@@ -29,7 +29,7 @@ const getDate = () => {
 }
 
 const findPeer = (socket, status) => {
-    if(queue.length > 0 && queue.indexOf(socket) === -1) {
+    if(queue.length > 0 && queue[0].id !== socket.id) {
         const peer = queue.pop();
         const room = socket.id + '#' + peer.id;
 
@@ -41,8 +41,8 @@ const findPeer = (socket, status) => {
         const peerAvatar = avatars[Math.floor(Math.random() * avatars.length)];
         const socketAvatar = avatars[Math.floor(Math.random() * avatars.length)]
 
-        peer.emit('start', { nickname: names[socket.id], avatar: peerAvatar, room });
-        socket.emit('start', { nickname: names[peer.id], avatar: socketAvatar, room });
+        peer.emit('start', { nickname: names[socket.id], avatar: peerAvatar });
+        socket.emit('start', { nickname: names[peer.id], avatar: socketAvatar });
     } else {
         queue.push(socket);
         socket.emit('queue', { status, message: 'Você está na fila de espera. Logo, logo você será conectado com alguém' });
@@ -57,6 +57,7 @@ const disconnecting = (socket, rooms) => {
     peerID = peerID[0] === socket.id ? peerID[1] : peerID[0];
     const peer = allUsers[peerID];
     peer.leave(room);
+    queue = [];
     findPeer(allUsers[peerID], "O usuário se desconectou. Aguarde!");
 }
 
@@ -86,6 +87,14 @@ io.on('connection', socket => {
     socket.on('disconnect queue', () => {
         queue = [];
         socket.emit('queue', { message: undefined });
+    })
+
+    socket.on('status', data => {
+        const room = rooms[socket.id];
+        let peerID = room.split('#');
+        peerID = peerID[0] === socket.id ? peerID[1] : peerID[0];
+        const peer = allUsers[peerID];
+        peer.emit('status client', data);
     })
 })
 

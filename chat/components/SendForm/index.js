@@ -1,12 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { Container, Input, SendButton } from './styles';
 import ThemeButton from './../../components/ThemeButton';
-import { Context } from './../../utils/ChatContext';
 import io from './../../utils/io';
 
 export default function SendForm({ theme, setTheme, setMessages }) {
-    const { connected } = useContext(Context);
     const [inputValue, setInputValue] = useState('');
 
     const getDate = () => {
@@ -16,8 +14,8 @@ export default function SendForm({ theme, setTheme, setMessages }) {
     }
 
     const sendText = () => {
-        if(connected) {
-            if(inputValue.length > 1) {
+        if(io.connected) {
+            if(inputValue.length > 0) {
                 io.emit('send message', {type: "", message: inputValue});
                 setMessages(msgs => [...msgs, {type: "you", date: getDate(), message: inputValue}]);
                 setInputValue('');

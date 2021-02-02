@@ -4,4 +4,4 @@ const URL = 'https://servidorlocaltunnelaqui';
 
 export const url = URL;
 
-export default ioClient(URL);
+export default ioClient(URL, { reconnection: false });
