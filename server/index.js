@@ -41,8 +41,8 @@ const findPeer = (socket, status) => {
         const peerAvatar = avatars[Math.floor(Math.random() * avatars.length)];
         const socketAvatar = avatars[Math.floor(Math.random() * avatars.length)]
 
-        peer.emit('start', { nickname: names[socket.id], avatar: peerAvatar, room });
-        socket.emit('start', { nickname: names[peer.id], avatar: socketAvatar, room });
+        peer.emit('start', { nickname: names[socket.id], avatar: peerAvatar });
+        socket.emit('start', { nickname: names[peer.id], avatar: socketAvatar });
     } else {
         queue.push(socket);
         socket.emit('queue', { status, message: 'Você está na fila de espera. Logo, logo você será conectado com alguém' });
