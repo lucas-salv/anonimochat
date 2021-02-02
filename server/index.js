@@ -57,6 +57,7 @@ const disconnecting = (socket, rooms) => {
     peerID = peerID[0] === socket.id ? peerID[1] : peerID[0];
     const peer = allUsers[peerID];
     peer.leave(room);
+    queue = [];
     findPeer(allUsers[peerID], "O usuário se desconectou. Aguarde!");
 }
 
@@ -86,6 +87,14 @@ io.on('connection', socket => {
     socket.on('disconnect queue', () => {
         queue = [];
         socket.emit('queue', { message: undefined });
+    })
+
+    socket.on('status', data => {
+        const room = rooms[socket.id];
+        let peerID = room.split('#');
+        peerID = peerID[0] === socket.id ? peerID[1] : peerID[0];
+        const peer = allUsers[peerID];
+        peer.emit('status client', data);
     })
 })
 

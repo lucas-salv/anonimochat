@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { AppState } from 'react-native';
 import { Container } from './styles';
 import io from './../../utils/io';
 
@@ -30,6 +31,11 @@ export default function Chat({ navigation, theme, setTheme }) {
         io.on('message', data => {
             setMessages( msgs => [...msgs,  data]);
         });
+        
+        AppState.addEventListener('change', state => {
+            io.emit('status', state);
+        });
+
     }, []);
 
     return (

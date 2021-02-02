@@ -5,7 +5,7 @@ export const darkTheme = {
     mainColor: "#35BB69",
     secondaryColor: "#2C2C2E",
     statusColor: "#41E07F",
-    statusColor2: "#FF3366",
+    statusColor2: "#f59e42",
     contrastColor: "#FFFFFF"
 }
 
@@ -16,6 +16,6 @@ export const lightTheme = {
     mainColor: "#35BB69",
     secondaryColor: "#EDF0F5",
     statusColor: "#41E07F",
-    statusColor2: "#FF3366", 
+    statusColor2: "#f59e42", 
     contrastColor: "#222630"
 }

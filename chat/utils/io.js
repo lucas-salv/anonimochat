@@ -1,6 +1,6 @@
 import ioClient from 'socket.io-client';
 
-const URL = 'https://neat-sheep-15.loca.lt';
+const URL = 'https://servidorlocaltunnelaqui';
 
 export const url = URL;
 

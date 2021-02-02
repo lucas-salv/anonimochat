@@ -34,7 +34,7 @@ export const Nickname = styled.Text`
 `;
 
 export const Status = styled.Text`
-    color: ${props => props.theme.statusColor};
+    color: ${props => props.typeColor === "Ausente" ? props.theme.statusColor2 : props.theme.statusColor};
     font-size: 12px;
 `;
 
