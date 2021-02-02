@@ -6,6 +6,7 @@ const io = require('socket.io')(http, {
       origin: "https://localhost:3000",
       methods: ["GET", "POST"]
     }
+
   });
 
 app.use('/anonimochat/static/', express.static('public'));
@@ -51,14 +52,16 @@ const findPeer = (socket, status) => {
 
 const disconnecting = (socket, rooms) => {
     const room = rooms[socket.id];
-    socket.broadcast.to(room).emit('end', []);
-    socket.leave(room);
-    let peerID = room.split('#');
-    peerID = peerID[0] === socket.id ? peerID[1] : peerID[0];
-    const peer = allUsers[peerID];
-    peer.leave(room);
-    queue = [];
-    findPeer(allUsers[peerID], "O usuário se desconectou. Aguarde!");
+    if(room) {
+        socket.broadcast.to(room).emit('end', []);
+        socket.leave(room);
+        let peerID = room.split('#');
+        peerID = peerID[0] === socket.id ? peerID[1] : peerID[0];
+        const peer = allUsers[peerID];
+        peer.leave(room);
+        queue = [];
+        findPeer(allUsers[peerID], "O usuário se desconectou. Aguarde!");
+    }
 }
 
 io.on('connection', socket => {
@@ -91,10 +94,22 @@ io.on('connection', socket => {
 
     socket.on('status', data => {
         const room = rooms[socket.id];
-        let peerID = room.split('#');
-        peerID = peerID[0] === socket.id ? peerID[1] : peerID[0];
-        const peer = allUsers[peerID];
-        peer.emit('status client', data);
+        if(room) {
+            let peerID = room.split('#');
+            peerID = peerID[0] === socket.id ? peerID[1] : peerID[0];
+            const peer = allUsers[peerID];
+            peer.emit('status client', data);
+        }
+    })
+
+    socket.on('writing', data => {
+        const room = rooms[socket.id];
+        if(room) {
+            let peerID = room.split('#');
+            peerID = peerID[0] === socket.id ? peerID[1] : peerID[0];
+            const peer = allUsers[peerID];
+            peer.emit('writing client', data);
+        }
     })
 })
 
