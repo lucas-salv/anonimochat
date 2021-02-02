@@ -16,6 +16,7 @@ export const Avatar = styled.View``;
 export const Img = styled.Image`
     width: 50px;
     height: 50px;
+    background-color: ${props => props.theme.secondaryColor};
     resize-mode: contain;
 `;
 

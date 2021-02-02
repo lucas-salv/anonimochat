@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { AppState } from 'react-native';
+import { AppState, BackHandler } from 'react-native';
 import { Container } from './styles';
 import io from './../../utils/io';
 
@@ -35,6 +35,17 @@ export default function Chat({ navigation, theme, setTheme }) {
         AppState.addEventListener('change', state => {
             io.emit('status', state);
         });
+
+        BackHandler.addEventListener('hardwareBackPress', () => {
+            io.emit('leave room');
+            navigation.goBack();
+        });
+        return () => {
+          BackHandler.removeEventListener('hardwareBackPress', () => {
+            io.emit('leave room');
+            navigation.goBack();
+        });
+        };
 
     }, []);
 

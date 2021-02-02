@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Keyboard } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Container, Input, SendButton } from './styles';
 import ThemeButton from './../../components/ThemeButton';
@@ -14,19 +15,39 @@ export default function SendForm({ theme, setTheme, setMessages }) {
     }
 
     const sendText = () => {
-        if(io.connected) {
             if(inputValue.length > 0) {
                 io.emit('send message', {type: "", message: inputValue});
                 setMessages(msgs => [...msgs, {type: "you", date: getDate(), message: inputValue}]);
                 setInputValue('');
             }
-        }
     }
+
+    const inputFocus = () => {
+        io.emit('writing', true);
+    }
+
+    const inputBlur = () => {
+        io.emit('writing', false);
+    }
+
+    useEffect(() => {
+        Keyboard.addListener('keyboardDidHide', () => {
+            Keyboard.dismiss();
+        })
+
+        return () => {
+            Keyboard.removeListener('keyboardDidHide', () => {
+                console.log('hidden keyboard');
+            })
+        }
+    }, [])
+
+    
 
     return (
         <Container>
             <ThemeButton theme={theme} setTheme={setTheme} />
-            <Input placeholder="Digite uma mensagem..." value={inputValue} onChangeText={text => setInputValue(text)} />
+            <Input placeholder="Digite uma mensagem..." value={inputValue} onFocus={inputFocus} onBlur={inputBlur} onChangeText={text => setInputValue(text)} />
             <SendButton
                 onPress={sendText}
             >
