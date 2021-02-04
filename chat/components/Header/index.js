@@ -13,6 +13,14 @@ export default function Header({ nav, data }) {
                 setStatus('Online');
             }
         })
+
+        io.on('writing client', data => {
+            if(data) {
+                setStatus('Digitando...');
+            } else {
+                setStatus('Online');
+            }
+        })
     }, []);
     
     const exitChat = () => {
