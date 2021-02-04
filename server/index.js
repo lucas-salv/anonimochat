@@ -34,8 +34,8 @@ const findPeer = (socket, status) => {
         const peer = queue.pop();
         const room = socket.id + '#' + peer.id;
 
-        peer.join(room);
         socket.join(room);
+        peer.join(room);
         rooms[peer.id] = room;
         rooms[socket.id] = room;
 
@@ -60,6 +60,8 @@ const disconnecting = (socket, rooms) => {
         const peer = allUsers[peerID];
         peer.leave(room);
         queue = [];
+        delete rooms[socket.id];
+        delete rooms[peerID];
         findPeer(allUsers[peerID], "O usuário se desconectou. Aguarde!");
     }
 }
