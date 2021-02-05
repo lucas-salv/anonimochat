@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Container, Avatar, Img, UserInfo, Info, Nickname, Status, ExitButton, Text, Icon } from './styles';
-import io, { url } from './../../utils/io';
+import io from './../../utils/io';
+import images from './../../utils/images';
 
 export default function Header({ nav, data }) {
     const [status, setStatus] = useState('Online');
@@ -33,9 +34,7 @@ export default function Header({ nav, data }) {
             <UserInfo>
                 <Avatar>
                     <Img 
-                    source={{
-                        uri: url + data.avatar 
-                    }} />
+                    source={ images[data.avatar] } />
                 </Avatar>
                 <Info>
                     <Nickname>{data.name}</Nickname>
