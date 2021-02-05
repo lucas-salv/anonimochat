@@ -2,8 +2,6 @@
 <br>
   <img src="./images/anonimochat.png" alt="anonimochat" width="120">
 <br>
-<br>
-ANÔNIMOCHAT
 </h1>
 
 <p align="center">Um app de bate papo em tempo real feito em React Native. A idéia é conectar duas pessoas aleatórias a conversarem de forma anônima.</p>
