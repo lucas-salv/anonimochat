@@ -15,8 +15,8 @@
 
 [//]: # (Add your gifs/images here:)
 <div>
-  <img src="./images/screenshot.png" alt="demo" height="425">
-  <img src="./images/anonimochatgif.gif" alt="demo" height="425">
+  <img src="./images/screenshot.png" alt="demo" height="625">
+  <img src="./images/anonimochatgif.gif" alt="demo" height="625">
 </div>
 <hr />
 
